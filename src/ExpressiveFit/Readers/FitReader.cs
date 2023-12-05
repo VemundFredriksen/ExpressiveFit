@@ -133,40 +133,60 @@ public class FitReader : IFitReader
 
         foreach (var field in message.Fields)
         {
-            if (field.Name == FIELD_TIMESTAMP)
-                timestamp = ToDateTimeOffset((uint)field.GetValue());
-            else if ((field.Name == FIELD_LATITUDE))
-                latitude = SemicirclesToDegrees((int)field.GetValue());
-            else if ((field.Name == FIELD_LONGITUDE))
-                longitude = SemicirclesToDegrees((int)field.GetValue());
-            else if ((field.Name == FIELD_DISTANCE))
-                distance = GetNullableField<float>(field);
-            else if ((field.Name == FIELD_ENHANCED_SPEED))
-                enhancedSpeed = GetNullableField<float>(field);
-            else if ((field.Name == FIELD_ENHANCED_ALTITUDE))
-                enhancedAltitude = GetNullableField<float>(field);
-            else if ((field.Name == FIELD_HEART_RATE))
-                heartRate = GetNullableField<byte>(field);
-            else if ((field.Name == FIELD_CADENCE))
-                cadence = GetNullableField<byte>(field);
-            else if ((field.Name == FIELD_FRACTIONAL_CADENCE))
-                fractionalCadence = GetNullableField<float>(field);
-            else if ((field.Name == FIELD_ACCUMULATED_POWER))
-                accumulatedPower = GetNullableField<int>(field);
-            else if ((field.Name == FIELD_POWER))
-                power = GetNullableField<int>(field) ?? GetNullableField<ushort>(field);
-            else if ((field.Name == FIELD_VERTICAL_OSCILLATION))
-                verticalOscillation = GetNullableField<float>(field);
-            else if ((field.Name == FIELD_VERTICAL_RATIO))
-                verticalRatio = GetNullableField<float>(field);
-            else if ((field.Name == FIELD_STANCE_TIME_PERCENT))
-                stanceTimePercent = GetNullableField<float>(field);
-            else if ((field.Name == FIELD_STANCE_TIME))
-                stanceTime = GetNullableField<float>(field);
-            else if ((field.Name == FIELC_STANCE_TIME_BALANCE))
-                stanceTimeBalance = GetNullableField<float>(field);
-            else if ((field.Name == FIELD_STEP_LENGTH))
-                stepLengt = GetNullableField<float>(field);
+            switch (field.Name)
+            {
+                case FIELD_TIMESTAMP:
+                    timestamp = ToDateTimeOffset((uint)field.GetValue());
+                    break;
+                case FIELD_LATITUDE:
+                    latitude = SemicirclesToDegrees((int)field.GetValue());
+                    break;
+                case FIELD_LONGITUDE:
+                    longitude = SemicirclesToDegrees((int)field.GetValue());
+                    break;
+                case FIELD_DISTANCE:
+                    distance = GetNullableField<float>(field);
+                    break;
+                case FIELD_ENHANCED_SPEED:
+                    enhancedSpeed = GetNullableField<float>(field);
+                    break;
+                case FIELD_ENHANCED_ALTITUDE:
+                    enhancedAltitude = GetNullableField<float>(field);
+                    break;
+                case FIELD_HEART_RATE:
+                    heartRate = GetNullableField<byte>(field);
+                    break;
+                case FIELD_CADENCE:
+                    cadence = GetNullableField<byte>(field);
+                    break;
+                case FIELD_FRACTIONAL_CADENCE:
+                    fractionalCadence = GetNullableField<float>(field);
+                    break;
+                case FIELD_ACCUMULATED_POWER:
+                    accumulatedPower = GetNullableField<int>(field);
+                    break;
+                case FIELD_POWER:
+                    power = GetNullableField<int>(field) ?? GetNullableField<ushort>(field);
+                    break;
+                case FIELD_VERTICAL_OSCILLATION:
+                    verticalOscillation = GetNullableField<float>(field);
+                    break;
+                case FIELD_VERTICAL_RATIO:
+                    verticalRatio = GetNullableField<float>(field);
+                    break;
+                case FIELD_STANCE_TIME_PERCENT:
+                    stanceTimePercent = GetNullableField<float>(field);
+                    break;
+                case FIELD_STANCE_TIME:
+                    stanceTime = GetNullableField<float>(field);
+                    break;
+                case FIELC_STANCE_TIME_BALANCE:
+                    stanceTimeBalance = GetNullableField<float>(field);
+                    break;
+                case FIELD_STEP_LENGTH:
+                    stepLengt = GetNullableField<float>(field);
+                    break;
+            }
         }
 
         if (timestamp == null)
