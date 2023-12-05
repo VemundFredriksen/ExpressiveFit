@@ -9,7 +9,7 @@ public record CadenceCharacteristics
 
     public CadenceCharacteristics(List<Tick> ticks)
     {
-        if (!ticks.Any(t => t.Cadence != null))
+        if (!ticks.Exists(t => t.Cadence != null))
             throw new ArgumentException("The list of ticks is missing cadence data!", nameof(ticks));
 
         Series = ticks.Where(t => t.Cadence is not null).Select(t => new TickTuple<int>(t.Timestamp, t.Cadence!.Value)).ToList();

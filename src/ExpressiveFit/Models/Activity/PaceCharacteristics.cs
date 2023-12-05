@@ -11,7 +11,7 @@ public record PaceCharacteristics
 
     public PaceCharacteristics(List<Tick> ticks)
     {
-        if (!ticks.Any(t => t.EnhancedSpeed != null))
+        if (!ticks.Exists(t => t.EnhancedSpeed != null))
             throw new ArgumentException("The list of ticks is missing speed data!", nameof(ticks));
 
         Series = ticks.Where(t => t.EnhancedSpeed is not null).Select(t => new TickTuple<PaceValue>(t.Timestamp, new PaceValue(t.EnhancedSpeed!.Value))).ToList();

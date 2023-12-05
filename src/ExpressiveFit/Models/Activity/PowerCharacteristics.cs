@@ -11,7 +11,7 @@ public record PowerCharacteristics
 
     public PowerCharacteristics(List<Tick> ticks)
     {
-        if (!ticks.Any(t => t.Power != null))
+        if (!ticks.Exists(t => t.Power != null))
             throw new ArgumentException("The list of ticks is missing power data!", nameof(ticks));
 
         Series = ticks.Where(t => t.Power is not null).Select(t => new TickTuple<int>(t.Timestamp, t.Power!.Value)).ToList();

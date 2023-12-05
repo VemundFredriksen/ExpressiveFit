@@ -12,6 +12,25 @@ public interface IFitReader
 
 public class FitReader : IFitReader
 {
+    const string FIELD_TIMESTAMP = "Timestamp";
+    const string FIELD_LATITUDE = "PositionLat";
+    const string FIELD_LONGITUDE = "PositionLong";
+    const string FIELD_DISTANCE = "Distance";
+    const string FIELD_ENHANCED_SPEED = "EnhancedSpeed";
+    const string FIELD_ENHANCED_ALTITUDE = "EnhancedAltitude";
+    const string FIELD_HEART_RATE = "HeartRate";
+    const string FIELD_CADENCE = "Cadence";
+    const string FIELD_FRACTIONAL_CADENCE = "FractionalCadence";
+    const string FIELD_ACCUMULATED_POWER = "AccumulatedPower";
+    const string FIELD_POWER = "Power";
+    const string FIELD_VERTICAL_OSCILLATION = "VerticalOscillation";
+    const string FIELD_STANCE_TIME_PERCENT = "StanceTimePercent";
+    const string FIELD_STANCE_TIME = "StanceTime";
+    const string FIELC_STANCE_TIME_BALANCE = "StanceTimeBalance";
+    const string FIELD_ACTIVITY_TYPE = "ActivityType";
+    const string FIELD_VERTICAL_RATIO = "VerticalRatio";
+    const string FIELD_STEP_LENGTH = "StepLength";
+
     private Decode _decoder;
     private List<Tick> _ticks = [];
     private HashSet<FitDeviceInfo> _fitDeviceInfos = [];
@@ -113,39 +132,39 @@ public class FitReader : IFitReader
 
         foreach (var field in message.Fields)
         {
-            if (field.Name == FitFieldNames.Timestamp)
+            if (field.Name == FIELD_TIMESTAMP)
                 timestamp = ToDateTimeOffset((uint)field.GetValue());
-            else if ((field.Name == FitFieldNames.Latitude))
+            else if ((field.Name == FIELD_LATITUDE))
                 latitude = SemicirclesToDegrees((int)field.GetValue());
-            else if ((field.Name == FitFieldNames.Longitude))
+            else if ((field.Name == FIELD_LONGITUDE))
                 longitude = SemicirclesToDegrees((int)field.GetValue());
-            else if ((field.Name == FitFieldNames.Distance))
+            else if ((field.Name == FIELD_DISTANCE))
                 distance = GetNullableField<float>(field);
-            else if ((field.Name == FitFieldNames.EnhancedSpeed))
+            else if ((field.Name == FIELD_ENHANCED_SPEED))
                 enhancedSpeed = GetNullableField<float>(field);
-            else if ((field.Name == FitFieldNames.EnhancedAltitude))
+            else if ((field.Name == FIELD_ENHANCED_ALTITUDE))
                 enhancedAltitude = GetNullableField<float>(field);
-            else if ((field.Name == FitFieldNames.HeartRate))
+            else if ((field.Name == FIELD_HEART_RATE))
                 heartRate = GetNullableField<byte>(field);
-            else if ((field.Name == FitFieldNames.Cadence))
+            else if ((field.Name == FIELD_CADENCE))
                 cadence = GetNullableField<byte>(field);
-            else if ((field.Name == FitFieldNames.FractionalCadence))
+            else if ((field.Name == FIELD_FRACTIONAL_CADENCE))
                 fractionalCadence = GetNullableField<float>(field);
-            else if ((field.Name == FitFieldNames.AccumulatedPower))
+            else if ((field.Name == FIELD_ACCUMULATED_POWER))
                 accumulatedPower = GetNullableField<int>(field);
-            else if ((field.Name == FitFieldNames.Power))
+            else if ((field.Name == FIELD_POWER))
                 power = GetNullableField<int>(field) ?? GetNullableField<ushort>(field);
-            else if ((field.Name == FitFieldNames.VerticalOscillation))
+            else if ((field.Name == FIELD_VERTICAL_OSCILLATION))
                 verticalOscillation = GetNullableField<float>(field);
-            else if ((field.Name == FitFieldNames.VerticalRatio))
+            else if ((field.Name == FIELD_VERTICAL_RATIO))
                 verticalRatio = GetNullableField<float>(field);
-            else if ((field.Name == FitFieldNames.StanceTimePercent))
+            else if ((field.Name == FIELD_STANCE_TIME_PERCENT))
                 stanceTimePercent = GetNullableField<float>(field);
-            else if ((field.Name == FitFieldNames.StanceTime))
+            else if ((field.Name == FIELD_STANCE_TIME))
                 stanceTime = GetNullableField<float>(field);
-            else if ((field.Name == FitFieldNames.StanceTimeBalance))
+            else if ((field.Name == FIELC_STANCE_TIME_BALANCE))
                 stanceTimeBalance = GetNullableField<float>(field);
-            else if ((field.Name == FitFieldNames.StepLength))
+            else if ((field.Name == FIELD_STEP_LENGTH))
                 stepLengt = GetNullableField<float>(field);
         }
 
@@ -194,28 +213,6 @@ public class FitReader : IFitReader
     {
         return semicircles * (180.0 / Math.Pow(2, 31));
     }
-}
-
-internal static class FitFieldNames
-{
-    public static string Timestamp = "Timestamp";
-    public static string Latitude = "PositionLat";
-    public static string Longitude = "PositionLong";
-    public static string Distance = "Distance";
-    public static string EnhancedSpeed = "EnhancedSpeed";
-    public static string EnhancedAltitude = "EnhancedAltitude";
-    public static string HeartRate = "HeartRate";
-    public static string Cadence = "Cadence";
-    public static string FractionalCadence = "FractionalCadence";
-    public static string AccumulatedPower = "AccumulatedPower";
-    public static string Power = "Power";
-    public static string VerticalOscillation = "VerticalOscillation";
-    public static string StanceTimePercent = "StanceTimePercent";
-    public static string StanceTime = "StanceTime";
-    public static string StanceTimeBalance = "StanceTimeBalance";
-    public static string ActivityType = "ActivityType";
-    public static string VerticalRatio = "VerticalRatio";
-    public static string StepLength = "StepLength";
 }
 
 internal record FitDeviceInfo(int Manufacturer, int? Model);

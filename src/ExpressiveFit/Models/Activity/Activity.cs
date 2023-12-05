@@ -27,16 +27,16 @@ public class Activity
         TimeCharacterstics = new TimeCharacterstics(ticks);
         CourseCharacteristics = new CourseCharacteristics(ticks);
 
-        if (ticks.Any(t => t.HeartRate != null))
+        if (ticks.Exists(t => t.HeartRate != null))
             HeartRateCharacteristics = new HeartRateCharacteristics(ticks);
 
-        if (ticks.Any(t => t.Cadence != null))
+        if (ticks.Exists(t => t.Cadence != null))
             CadenceCharacteristics = new CadenceCharacteristics(ticks);
 
-        if (ticks.Any(t => t.Power != null))
+        if (ticks.Exists(t => t.Power != null))
             PowerCharacteristics = new PowerCharacteristics(ticks);
 
-        if(ticks.Any(t => t.EnhancedSpeed != null))
+        if(ticks.Exists(t => t.EnhancedSpeed != null))
             PaceCharacteristics = new PaceCharacteristics(ticks);
 
         Laps = [];

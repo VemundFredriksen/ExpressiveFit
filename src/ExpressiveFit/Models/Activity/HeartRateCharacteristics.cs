@@ -11,7 +11,7 @@ public record HeartRateCharacteristics
 
     public HeartRateCharacteristics(List<Tick> ticks)
     {
-        if (!ticks.Any(t => t.HeartRate != null))
+        if (!ticks.Exists(t => t.HeartRate != null))
             throw new ArgumentException("The list of ticks is missing heart rate data!", nameof(ticks));
 
         Series = ticks.Where(t => t.HeartRate is not null).Select(t => new TickTuple<int>(t.Timestamp, t.HeartRate!.Value)).ToList();
@@ -19,6 +19,6 @@ public record HeartRateCharacteristics
         Max = ticks.Max(t => t.HeartRate)!.Value;
         Min = ticks.Min(t => t.HeartRate)!.Value;
         Average = ticks.Average(t => t.HeartRate)!.Value;
-        TotalBeats = (int) Math.Floor(Average * (Series.Last().Timestamp - Series.First().Timestamp).TotalMinutes);
+        TotalBeats = (int) Math.Floor(Average * (Series.Last().Timestamp - Series[0].Timestamp).TotalMinutes);
     }
 }

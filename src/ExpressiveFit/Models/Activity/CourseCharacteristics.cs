@@ -11,7 +11,7 @@ public record CourseCharacteristics
 
     public CourseCharacteristics(List<Tick> ticks)
     {
-        var baseDistance = ticks.First().Distance ?? 0;
+        var baseDistance = ticks[0].Distance ?? 0;
         AltitudeSeries = ticks
             .Where(t => t.Altitude is not null)
             .Select(t => new TickTuple<float>(t.Timestamp, t.Altitude!.Value))
@@ -35,17 +35,17 @@ public record CourseCharacteristics
         if (relevantTicks.Count == 0)
             return new Tuple<float, float>(0, 0);
 
-        var previousAltitude = relevantTicks.First().Altitude!.Value;
+        var previousAltitude = relevantTicks[0].Altitude!.Value;
         var totalFall = 0.0f;
         var totalClimb = 0.0f;
-        foreach (var tick in relevantTicks.Skip(1))
+        foreach (var altitude in relevantTicks.Where(t => t.Altitude is not null).Select(t => t.Altitude ?? 0).Skip(1))
         {
-            if (tick.Altitude!.Value < previousAltitude)
-                totalFall += previousAltitude - tick.Altitude!.Value;
-            else if (tick.Altitude!.Value > previousAltitude)
-                totalClimb += tick.Altitude!.Value - previousAltitude;
+            if (altitude < previousAltitude)
+                totalFall += previousAltitude - altitude;
+            else if (altitude > previousAltitude)
+                totalClimb += altitude - previousAltitude;
 
-            previousAltitude = tick.Altitude!.Value;
+            previousAltitude = altitude;
         }
 
         return new Tuple<float, float>(totalFall, totalClimb);
