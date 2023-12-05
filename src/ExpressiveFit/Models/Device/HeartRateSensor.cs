@@ -2,7 +2,7 @@
 
 public record HeartRateSensor(ModelType Model) : GarminDevice(Model)
 {
-    public static List<ModelType> HeartRateSensorModels =
+    public static List<ModelType> HeartRateSensorModels =>
     [
         ModelType.Hrm1,
         ModelType.Hrm2ss,

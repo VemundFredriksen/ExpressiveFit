@@ -67,6 +67,7 @@ public class FitReader : IFitReader
         _decoder.MesgEvent += OnMesgEvent;
         _ticks = [];
         _fitDeviceInfos = [];
+        _laps = [];
     }
 
     private void OnMesgEvent(object sender, MesgEventArgs e)

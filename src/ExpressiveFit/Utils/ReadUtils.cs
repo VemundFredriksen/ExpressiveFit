@@ -12,7 +12,7 @@ public static class ReadUtils
     }
     public static async Task<List<Activity>> ReadFiles(List<string> filePaths)
     {
-        var files = filePaths.Select(f => new FileStream(f, FileMode.Open)).ToList(); ;
+        var files = filePaths.Select(f => new FileStream(f, FileMode.Open)).ToList();
         return await ReadFiles(files);
     }
     public static async Task<List<Activity>> ReadFiles(List<FileStream> files)

@@ -2,8 +2,8 @@
 
 public record Watch(ModelType Model) : GarminDevice(Model)
 {
-    public static List<ModelType> WatchModels = new List<ModelType>()
-    {
+    public static List<ModelType> WatchModels =>
+    [
         ModelType.Fenix,
         ModelType.Fenix2,
         ModelType.Fenix3,
@@ -46,5 +46,5 @@ public record Watch(ModelType Model) : GarminDevice(Model)
         ModelType.Fenix7xApac,
         ModelType.Fenix7xProSolar,
 
-    };
+    ];
 }

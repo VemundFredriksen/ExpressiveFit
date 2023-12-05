@@ -19,6 +19,6 @@ public record HeartRateCharacteristics
         Max = ticks.Max(t => t.HeartRate)!.Value;
         Min = ticks.Min(t => t.HeartRate)!.Value;
         Average = ticks.Average(t => t.HeartRate)!.Value;
-        TotalBeats = (int) Math.Floor(Average * (Series.Last().Timestamp - Series[0].Timestamp).TotalMinutes);
+        TotalBeats = (int) Math.Floor(Average * (Series[^1].Timestamp - Series[0].Timestamp).TotalMinutes);
     }
 }
