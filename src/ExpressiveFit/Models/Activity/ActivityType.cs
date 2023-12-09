@@ -1,6 +1,3 @@
 ﻿namespace ExpressiveFit.Models.Activities;
 
-public enum ActivityType
-{
-    Running = 1
-}
+public record ActivityType(SportsType Type, SubSportsType SubType);
