@@ -16,8 +16,9 @@ public class Activity
     public PaceCharacteristics? PaceCharacteristics { get; set; }
 
 
-    public Activity(List<Device> devices, List<Tick> ticks, List<DateTimeOffset> laps)
+    public Activity(ActivityType type, List<Device> devices, List<Tick> ticks, List<DateTimeOffset> laps)
     {
+        Type = type;
         if (ticks.Count == 0)
             throw new ArgumentException("Tick list cannot be empty.", nameof(ticks));
 

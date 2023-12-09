@@ -2,6 +2,7 @@
 using ExpressiveFit.Models.Activities;
 using ExpressiveFit.Models.Devices;
 using Activity = ExpressiveFit.Models.Activities.Activity;
+using SportsType = ExpressiveFit.Models.Activities.SportsType;
 
 namespace ExpressiveFit.Readers;
 
@@ -35,6 +36,7 @@ public class FitReader : IFitReader
     private List<Tick> _ticks = [];
     private HashSet<FitDeviceInfo> _fitDeviceInfos = [];
     private List<DateTimeOffset> _laps = [];
+    private Models.Activities.ActivityType activityType;
 
     public FitReader()
     {
@@ -58,7 +60,7 @@ public class FitReader : IFitReader
 
         var devices = _fitDeviceInfos.Select(f => Device.FromManufacturerType((ManufacturerType)f.Manufacturer, (ModelType?) f.Model ?? ModelType.Unknown)).ToList();
 
-        return new Activity(devices, _ticks, _laps);
+        return new Activity(activityType, devices, _ticks, _laps);
     }
 
     private void ClearDecoder()
@@ -92,6 +94,12 @@ public class FitReader : IFitReader
         {
             var laptime = ToDateTimeOffset((uint)e.mesg.Fields.Single(f => f.Name == "Timestamp").GetValue());
             _laps.Add(laptime);
+        }
+        else if(e.mesg.Name == "Sport")
+        {
+            int sport = (int)(byte) (e.mesg.Fields.SingleOrDefault(f => f.Name == "Sport")?.GetValue() ?? 0);
+            var subSport = (int)(byte)(e.mesg.Fields.SingleOrDefault(f => f.Name == "SubSport")?.GetValue() ?? 0);
+            activityType = new((SportsType)sport, (SubSportsType)subSport);
         }
     }
 
