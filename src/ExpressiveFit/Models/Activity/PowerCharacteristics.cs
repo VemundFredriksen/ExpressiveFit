@@ -22,7 +22,7 @@ public record PowerCharacteristics
         TotalPower = CalculateTotalWattHours(ticks);
     }
 
-    private WorkValue CalculateTotalWattHours(List<Tick> ticks)
+    private static WorkValue CalculateTotalWattHours(List<Tick> ticks)
     {
         var duration = ticks.Max(t => t.Timestamp) - ticks.Min(t => t.Timestamp);
         var averageWatts = ticks.Average(t => t.Power) ?? 0;

@@ -101,10 +101,6 @@ public class FitReader : IFitReader
             var subSport = (int)(byte)(e.mesg.Fields.SingleOrDefault(f => f.Name == "SubSport")?.GetValue() ?? 0);
             activityType = new((SportsType)sport, (SubSportsType)subSport);
         }
-        else
-        {
-
-        }
     }
 
     private static FitDeviceInfo? ReadDevice(Mesg message)
