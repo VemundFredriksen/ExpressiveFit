@@ -21,7 +21,7 @@ public record PaceCharacteristics
         Slowest = sortedBySpeed.First().Value!;
 
         Average = CalculateAverage(ticks);
-        MovingAverage = CalculateAverage(ticks.Where(t => t.EnhancedSpeed > 0).ToList());
+        MovingAverage = new PaceValue(ticks.Where(t => t.EnhancedSpeed > 0).Average(t => t.EnhancedSpeed) ?? 0 );
     }
 
     private static PaceValue CalculateAverage(List<Tick> ticks)
