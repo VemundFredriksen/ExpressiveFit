@@ -20,10 +20,15 @@ public record PaceCharacteristics
         Fastest = sortedBySpeed.Last().Value!;
         Slowest = sortedBySpeed.First().Value!;
 
-        var average = Series.Average(t => t.Value!.MetersPerSecond);
-        Average = new PaceValue(average);
+        Average = CalculateAverage(ticks);
+        MovingAverage = CalculateAverage(ticks.Where(t => t.EnhancedSpeed > 0).ToList());
+    }
 
-        var averageMoving = Series.Where(t => t.Value!.MetersPerSecond > 0).Average(t => t.Value!.MetersPerSecond);
-        MovingAverage = new PaceValue(averageMoving);
+    private static PaceValue CalculateAverage(List<Tick> ticks)
+    {
+        var totalMeters = ticks.Max(t => t.Distance) - ticks.Min(t => t.Distance);
+        var totalSeconds = (ticks.Max(t => t.Timestamp) - ticks.Min(t => t.Timestamp)).TotalSeconds;
+        var metersPerSecond = totalMeters / totalSeconds;
+        return new PaceValue(metersPerSecond ?? 0);
     }
 }

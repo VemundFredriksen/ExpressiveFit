@@ -8,6 +8,7 @@ public record CourseCharacteristics
     public float? MaxAltitude { get; init; }
     public float TotalClimb { get; init; }
     public float TotalFall { get; init; }
+    public float NetAltitudeChange { get; set; }
 
     public CourseCharacteristics(List<Tick> ticks)
     {
@@ -27,6 +28,8 @@ public record CourseCharacteristics
         var altitudeChange = DetermineTotalFallAndClimb(ticks);
         TotalFall = altitudeChange.Item1;
         TotalClimb = altitudeChange.Item2;
+
+        NetAltitudeChange = TotalClimb - TotalFall;
     }
 
     private static Tuple<float, float> DetermineTotalFallAndClimb(List<Tick> ticks)
