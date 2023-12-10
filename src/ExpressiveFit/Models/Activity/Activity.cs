@@ -44,7 +44,7 @@ public class Activity
         var remainingTicks = Ticks;
         foreach (var lap in laps.OrderBy(l => l))
         {
-            Laps.Add(new Lap(remainingTicks.Where(t => t.Timestamp < lap).ToList()));
+            Laps.Add(new Lap(remainingTicks.Where(t => t.Timestamp <= lap).ToList()));
             remainingTicks = remainingTicks.Where(t => t.Timestamp >= lap).ToList();
         }
     }
