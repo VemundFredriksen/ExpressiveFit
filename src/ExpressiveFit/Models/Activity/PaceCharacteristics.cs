@@ -24,7 +24,7 @@ public record PaceCharacteristics
         MovingAverage = CalculateAverage(ticks.Where(t => t.EnhancedSpeed > 0).ToList());
     }
 
-    private PaceValue CalculateAverage(List<Tick> ticks)
+    private static PaceValue CalculateAverage(List<Tick> ticks)
     {
         var totalMeters = ticks.Max(t => t.Distance) - ticks.Min(t => t.Distance);
         var totalSeconds = (ticks.Max(t => t.Timestamp) - ticks.Min(t => t.Timestamp)).TotalSeconds;
