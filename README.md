@@ -1,5 +1,3 @@
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=VemundFredriksen_ExpressiveFit&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=VemundFredriksen_ExpressiveFit) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=VemundFredriksen_ExpressiveFit&metric=coverage)](https://sonarcloud.io/summary/new_code?id=VemundFredriksen_ExpressiveFit)
-
 # ExpressiveFit
 A C# library with expressive models to interact with the content of .FIT-files.
 
